@@ -2,63 +2,51 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 import '../../const/app_color.dart';
-import '../../const/txt_style.dart';
 import '../../controller/quiz_controller.dart';
 
-Widget buildOptionButton(
-  String text,
-  int index, {
-  bool isReviewMode = false,
-  bool isCorrect = false,
-  bool wasSelected = false,
-}) {
+Widget buildOptionButton(String text, int index) {
   final QuizController quizController = Get.put(QuizController());
   return Obx(() {
-    Color backgroundColor = AppColor.whiteColor;
-    Color borderColor = AppColor.grey;
+    final isSelected = quizController.isOptionSelected(index);
 
-    if (isReviewMode) {
-      if (isCorrect) {
-        backgroundColor = Colors.green.withOpacity(0.2);
-        borderColor = Colors.green;
-      } else if (wasSelected) {
-        backgroundColor = Colors.red.withOpacity(0.2);
-        borderColor = Colors.red;
-      }
-    } else if (quizController
-            .userAnswers[quizController.currentQuestionIndex.value] ==
-        index) {
-      backgroundColor = AppColor.primaryColor.withOpacity(0.2);
-      borderColor = AppColor.primaryColor;
+    Color getBackgroundColor() {
+      if (isSelected) return AppColor.primaryColor.withOpacity(0.1);
+      return Colors.white;
     }
 
-    return GestureDetector(
-      onTap: isReviewMode ? null : () => quizController.selectOption(index),
-      child: Container(
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          border: Border.all(color: borderColor),
-          borderRadius: BorderRadius.circular(15),
+    Color getBorderColor() {
+      if (isSelected) return AppColor.primaryColor;
+      return AppColor.grey.withOpacity(0.8);
+    }
+
+    return Container(
+      width: double.infinity,
+      height: 75,
+      child: ElevatedButton(
+        onPressed: () {
+          quizController.selectOption(index);
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: getBackgroundColor(),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
+            side: BorderSide(
+              color: getBorderColor(),
+              width: 1,
+            ),
+          ),
+          elevation: 0,
         ),
-        child: Row(
-          children: [
-            Text(
-              String.fromCharCode(65 + index), // A, B, C, D...
-              style: mediumBoldText,
+        child: Padding(
+          padding: EdgeInsets.only(left: 16),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: Colors.black87,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
             ),
-            SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                text,
-                style: mediumBoldText,
-              ),
-            ),
-            if (isReviewMode && isCorrect)
-              Icon(Icons.check_circle, color: Colors.green),
-            if (isReviewMode && wasSelected && !isCorrect)
-              Icon(Icons.cancel, color: Colors.red),
-          ],
+          ),
         ),
       ),
     );
