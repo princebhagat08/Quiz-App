@@ -10,25 +10,25 @@ class QuizController extends GetxController {
 
   // Observables for quiz state
   final Rx<QuizDataModel?> quizData = Rx<QuizDataModel?>(null);
-  final RxInt currentQuestionIndex = 0.obs;
+  final RxInt _currentQuestionIndex = 0.obs;
   final RxMap<int, int> userAnswers = RxMap<int, int>({});
   final RxBool isLoading = true.obs;
   final RxString errorMessage = ''.obs;
 
   // Getters for current question data
   Questions? get currentQuestion =>
-      quizData.value?.questions?[currentQuestionIndex.value];
+      quizData.value?.questions?[_currentQuestionIndex.value];
 
   List<Options>? get currentOptions => currentQuestion?.options;
 
   int get totalQuestions => quizData.value?.questions?.length ?? 0;
 
   String get questionProgress =>
-      '${currentQuestionIndex.value + 1}/${totalQuestions}';
+      '${_currentQuestionIndex.value + 1}/${totalQuestions}';
 
   int get quizDuration => quizData.value?.duration ?? 60;
 
-  bool get isLastQuestion => currentQuestionIndex.value == totalQuestions - 1;
+  bool get isLastQuestion => _currentQuestionIndex.value == totalQuestions - 1;
 
   @override
   void onInit() {
@@ -56,11 +56,11 @@ class QuizController extends GetxController {
   }
 
   void selectOption(int index) {
-    userAnswers[currentQuestionIndex.value] = index;
+    userAnswers[_currentQuestionIndex.value] = index;
   }
 
   bool isOptionSelected(int index) {
-    return userAnswers[currentQuestionIndex.value] == index;
+    return userAnswers[_currentQuestionIndex.value] == index;
   }
 
   bool isCorrectAnswer(int index) {
@@ -68,8 +68,8 @@ class QuizController extends GetxController {
   }
 
   void nextQuestion() {
-    if (currentQuestionIndex.value < totalQuestions - 1) {
-      currentQuestionIndex.value++;
+    if (_currentQuestionIndex.value < totalQuestions - 1) {
+      _currentQuestionIndex.value++;
     } else {
       submitTest();
     }
@@ -77,12 +77,13 @@ class QuizController extends GetxController {
 
   void previousQuestion() {
     if (canMoveToPrevious()) {
-      currentQuestionIndex.value--;
+      _currentQuestionIndex.value--;
+
     }
   }
 
   bool canMoveToPrevious() {
-    return currentQuestionIndex.value > 0;
+    return _currentQuestionIndex.value > 0;
   }
 
   bool canMoveToNext() => true; // Always enabled since we're removing the lock
@@ -100,18 +101,35 @@ class QuizController extends GetxController {
       totalAttempted++;
     });
 
-    double correctMark =
-        double.parse(quizData.value!.correctAnswerMarks ?? '1');
+    double correctMark = double.parse(quizData.value!.correctAnswerMarks ?? '1');
     double negativeMark = double.parse(quizData.value!.negativeMarks ?? '0');
     double score = (correctAnswers * correctMark) -
-        ((totalAttempted - correctAnswers) * negativeMark);
+        ((totalAttempted - correctAnswers) * negativeMark );
     double completion = (totalAttempted / totalQuestions) * 100;
 
-    Get.to(() => SummaryScreen(
+    // Get.defaultDialog(
+    //   title: 'Quiz Results',
+    //   content: Column(
+    //     children: [
+    //       Text('Total Questions: $totalQuestions'),
+    //       Text('Attempted: $totalAttempted'),
+    //       Text('Correct Answers: $correctAnswers'),
+    //       Text('Score: $score'),
+    //       Text('Percentage: ${percentage.toStringAsFixed(2)}%'),
+    //     ],
+    //   ),
+    //   confirmTextColor: Colors.white,
+    //   textConfirm: 'OK',
+    //   onConfirm: () {
+    //     Get.back();
+    //
+    //   },
+    // );
+    Get.to(()=>SummaryScreen(
         completion: completion,
         totalQuestion: totalQuestions.toDouble(),
         correctAns: correctAnswers.toDouble(),
-        incorrectAns: (totalAttempted - correctAnswers).toDouble(),
+        incorrectAns: (totalAttempted-correctAnswers).toDouble(),
         totalScore: score));
   }
 
@@ -121,13 +139,5 @@ class QuizController extends GetxController {
 
   String getOptionDescription(int index) {
     return currentOptions?[index].description ?? 'No option available';
-  }
-
-  bool isCorrectOption(int index) {
-    return currentOptions?[index].isCorrect ?? false;
-  }
-
-  bool wasOptionSelected(int index) {
-    return userAnswers[currentQuestionIndex.value] == index;
   }
 }

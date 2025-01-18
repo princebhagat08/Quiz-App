@@ -51,6 +51,7 @@ class TimerController extends GetxController {
       barrierDismissible: false,
       onConfirm: () {
         Get.back();
+        // Get the QuizController instance and submit the test
         final quizController = Get.find<QuizController>();
         quizController.submitTest();
       },
