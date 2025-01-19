@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:quizapp_testline/const/app_color.dart';
 import 'package:quizapp_testline/const/txt_style.dart';
 import 'package:quizapp_testline/screens/quiz_screen.dart';
+import 'package:quizapp_testline/screens/review_screen.dart';
 
 import '../controller/quiz_controller.dart';
 import 'custom_widgets/bubble.dart';
@@ -211,7 +212,7 @@ class SummaryScreen extends StatelessWidget {
                       icon: Icons.remove_red_eye,
                       label: 'Review Answer',
                       color: Colors.brown,
-                      onTap: () {},
+                      onTap: () {Get.to(()=>ReviewScreen());},
                     ),
                     _buildActionButton(
                       icon: Icons.picture_as_pdf,

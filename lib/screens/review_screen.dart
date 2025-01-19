@@ -236,10 +236,10 @@ class ReviewScreen extends StatelessWidget {
                     width: 150,
                   ),
                   buildButton(
-                    quizController.isLastQuestion ? "Submit" : "Next",
+                    quizController.isLastQuestion ? "OK" : "Next",
                     enabled: !quizController.isLoading.value,
                     onPressed: () {
-                      quizController.nextQuestion();
+                      quizController.isLastQuestion ? Get.back(): quizController.nextQuestion();
                     },
                     width: 150,
                   ),

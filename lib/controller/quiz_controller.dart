@@ -21,7 +21,6 @@ class QuizController extends GetxController {
   final RxBool isLoading = true.obs;
   final RxString errorMessage = ''.obs;
 
-
   Questions? get currentQuestion =>
       quizData.value?.questions?[_currentQuestionIndex.value];
 
@@ -55,7 +54,16 @@ class QuizController extends GetxController {
       timerController.initializeTimer(quizData.value!.duration! * 60 ?? 60);
       isLoading.value = false;
     } catch (e) {
-      showErrorDialog('$e',[TextButton(onPressed: (){Get.off(()=>HomeScreen());}, child: Text('Retry',style: mediumBoldColorText,))]);
+      showErrorDialog('$e', [
+        TextButton(
+            onPressed: () {
+              Get.off(() => HomeScreen());
+            },
+            child: Text(
+              'Retry',
+              style: mediumBoldColorText,
+            ))
+      ]);
       errorMessage.value = 'Failed to load quiz data';
     }
   }
@@ -83,7 +91,6 @@ class QuizController extends GetxController {
   void previousQuestion() {
     if (canMoveToPrevious()) {
       _currentQuestionIndex.value--;
-
     }
   }
 
@@ -106,18 +113,20 @@ class QuizController extends GetxController {
       totalAttempted++;
     });
 
-    double correctMark = double.parse(quizData.value!.correctAnswerMarks ?? '1');
+    double correctMark =
+        double.parse(quizData.value!.correctAnswerMarks ?? '1');
     double negativeMark = double.parse(quizData.value!.negativeMarks ?? '0');
     double score = (correctAnswers * correctMark) -
-        ((totalAttempted - correctAnswers) * negativeMark );
+        ((totalAttempted - correctAnswers) * negativeMark);
     double completion = (totalAttempted / totalQuestions) * 100;
 
-
-    Get.to(()=>SummaryScreen(
+    final timerController = Get.find<TimerController>();
+    timerController.startTimer();
+    Get.to(() => SummaryScreen(
         completion: completion,
         totalQuestion: totalQuestions.toDouble(),
         correctAns: correctAnswers.toDouble(),
-        incorrectAns: (totalAttempted-correctAnswers).toDouble(),
+        incorrectAns: (totalAttempted - correctAnswers).toDouble(),
         totalScore: score));
   }
 
@@ -127,5 +136,10 @@ class QuizController extends GetxController {
 
   String getOptionDescription(int index) {
     return currentOptions?[index].description ?? 'No option available';
+  }
+
+  bool isCorrectOption(int index) {
+    // Return true if this option is the correct answer
+    return currentOptions![index].isCorrect!;
   }
 }
