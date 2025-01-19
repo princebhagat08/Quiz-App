@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quizapp_testline/const/app_color.dart';
+import 'package:quizapp_testline/const/txt_style.dart';
+import 'package:quizapp_testline/screens/home_screen.dart';
 import 'package:quizapp_testline/screens/summary_screen.dart';
+import 'package:quizapp_testline/utils/custom_alert.dart';
+import 'package:quizapp_testline/utils/custom_utils.dart';
 import '../models/quiz_data_model.dart';
 import '../repo/quiz_data_repo.dart';
 import '../controller/timer_controller.dart';
+import '../screens/custom_widgets/custom_button.dart';
 
 class QuizController extends GetxController {
   final QuizDataRepo _quizRepo = QuizDataRepo();
@@ -15,7 +21,7 @@ class QuizController extends GetxController {
   final RxBool isLoading = true.obs;
   final RxString errorMessage = ''.obs;
 
-  // Getters for current question data
+
   Questions? get currentQuestion =>
       quizData.value?.questions?[_currentQuestionIndex.value];
 
@@ -47,11 +53,10 @@ class QuizController extends GetxController {
       // Initialize timer with quiz duration
       final timerController = Get.find<TimerController>();
       timerController.initializeTimer(quizData.value!.duration! * 60 ?? 60);
-    } catch (e) {
-      print("Error: $e");
-      errorMessage.value = 'Failed to load quiz data';
-    } finally {
       isLoading.value = false;
+    } catch (e) {
+      showErrorDialog('$e',[TextButton(onPressed: (){Get.off(()=>HomeScreen());}, child: Text('Retry',style: mediumBoldColorText,))]);
+      errorMessage.value = 'Failed to load quiz data';
     }
   }
 
@@ -86,7 +91,7 @@ class QuizController extends GetxController {
     return _currentQuestionIndex.value > 0;
   }
 
-  bool canMoveToNext() => true; // Always enabled since we're removing the lock
+  bool canMoveToNext() => !isLoading.value;
 
   void submitTest() {
     int correctAnswers = 0;
@@ -107,24 +112,7 @@ class QuizController extends GetxController {
         ((totalAttempted - correctAnswers) * negativeMark );
     double completion = (totalAttempted / totalQuestions) * 100;
 
-    // Get.defaultDialog(
-    //   title: 'Quiz Results',
-    //   content: Column(
-    //     children: [
-    //       Text('Total Questions: $totalQuestions'),
-    //       Text('Attempted: $totalAttempted'),
-    //       Text('Correct Answers: $correctAnswers'),
-    //       Text('Score: $score'),
-    //       Text('Percentage: ${percentage.toStringAsFixed(2)}%'),
-    //     ],
-    //   ),
-    //   confirmTextColor: Colors.white,
-    //   textConfirm: 'OK',
-    //   onConfirm: () {
-    //     Get.back();
-    //
-    //   },
-    // );
+
     Get.to(()=>SummaryScreen(
         completion: completion,
         totalQuestion: totalQuestions.toDouble(),

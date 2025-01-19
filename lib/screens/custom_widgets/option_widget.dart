@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import '../../const/app_color.dart';
 import '../../controller/quiz_controller.dart';
 
-Widget buildOptionButton(String text, int index) {
+Widget buildOptionButton(String text, int index, {bool isReviewing = false}) {
   final QuizController quizController = Get.put(QuizController());
   return Obx(() {
     final isSelected = quizController.isOptionSelected(index);
@@ -24,7 +24,7 @@ Widget buildOptionButton(String text, int index) {
       height: 75,
       child: ElevatedButton(
         onPressed: () {
-          quizController.selectOption(index);
+          isReviewing ?null : quizController.selectOption(index);
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: getBackgroundColor(),

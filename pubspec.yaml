@@ -37,6 +37,7 @@ dependencies:
   google_fonts:
   get:
   shimmer:
+  fluttertoast:
 
 dev_dependencies:
   flutter_test:
