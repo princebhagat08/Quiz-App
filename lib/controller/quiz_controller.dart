@@ -129,10 +129,8 @@ class QuizController extends GetxController {
     double completion = (totalAttempted / totalQuestions) * 100;
 
     final timerController = Get.find<TimerController>();
-    timerController.startTimer();
+    timerController.stopTimer();
 
-    // Clear answers before navigating
-    userAnswers.clear();
 
     Get.to(
       () => SummaryScreen(
@@ -144,8 +142,6 @@ class QuizController extends GetxController {
       ),
     );
     _currentQuestionIndex.value = 0;
-    // Reset quiz data to ensure clean state
-    quizData.value = null;
   }
 
   String getQuestionDescription() {

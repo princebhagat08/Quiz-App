@@ -15,7 +15,7 @@ class SummaryScreen extends StatelessWidget {
   final double incorrectAns;
   final double totalScore;
 
-  const SummaryScreen({
+ SummaryScreen({
     super.key,
     required this.completion,
     required this.totalQuestion,
@@ -23,6 +23,8 @@ class SummaryScreen extends StatelessWidget {
     required this.incorrectAns,
     required this.totalScore,
   });
+
+  final QuizController quizController = Get.put(QuizController());
 
   @override
   Widget build(BuildContext context) {
@@ -203,7 +205,8 @@ class SummaryScreen extends StatelessWidget {
                       color: Colors.blue,
                       onTap: () {
                         // Clear any existing quiz state from memory
-                        Get.delete<QuizController>(force: true);
+                        // Get.delete<QuizController>(force: true);
+                        quizController.userAnswers.clear();
                         // Navigate to QuizScreen and remove all previous routes
                         Get.offAll(() => QuizScreen(),
                             transition: Transition.fade);

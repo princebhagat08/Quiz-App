@@ -47,7 +47,7 @@ Widget buildOptionButton(String text, int index, {bool isReviewing = false}) {
             isReviewing ? null : () => quizController.selectOption(index),
         style: ElevatedButton.styleFrom(
           backgroundColor: getBackgroundColor(),
-          disabledBackgroundColor: getBackgroundColor(),
+          disabledBackgroundColor: isReviewing?getBackgroundColor():AppColor.whiteColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
             side: BorderSide(
