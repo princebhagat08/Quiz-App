@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizapp_testline/screens/home_screen.dart';
+import 'package:quizapp_testline/screens/leaderboard.dart';
 import 'package:quizapp_testline/screens/quiz_screen.dart';
 import 'package:quizapp_testline/screens/summary_screen.dart';
 

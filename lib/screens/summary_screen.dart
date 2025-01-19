@@ -4,6 +4,7 @@ import 'package:quizapp_testline/const/app_color.dart';
 import 'package:quizapp_testline/const/app_images.dart';
 import 'package:quizapp_testline/const/txt_style.dart';
 import 'package:quizapp_testline/screens/home_screen.dart';
+import 'package:quizapp_testline/screens/leaderboard.dart';
 import 'package:quizapp_testline/screens/quiz_screen.dart';
 import 'package:quizapp_testline/screens/review_screen.dart';
 
@@ -214,8 +215,9 @@ class SummaryScreen extends StatelessWidget {
                   ],
                 ),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Badges"),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -280,7 +282,7 @@ class SummaryScreen extends StatelessWidget {
                         icon: Icons.leaderboard,
                         label: 'Leaderboard',
                         color: Colors.grey[700]!,
-                        onTap: () {},
+                        onTap: () { Get.to(()=>Leaderboard()); },
                       ),
 
                       // _buildActionButton(

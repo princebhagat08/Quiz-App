@@ -6,7 +6,8 @@ import 'package:quizapp_testline/const/app_images.dart';
 import 'package:quizapp_testline/const/txt_style.dart';
 import 'package:quizapp_testline/controller/quiz_controller.dart';
 import 'package:quizapp_testline/screens/quiz_screen.dart';
-
+import 'package:lottie/lottie.dart';
+import 'package:quizapp_testline/utils/custom_utils.dart';
 import '../controller/timer_controller.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -21,8 +22,11 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        title: Image.asset(logo,),
         actions: [
-          IconButton(onPressed: () {}, icon: _buildStreak()),
+          IconButton(
+              onPressed: () => _showStreakBottomSheet(context),
+              icon: _buildStreak()),
           IconButton(
               onPressed: () {},
               icon: const Icon(
@@ -88,7 +92,66 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-
+  void _showStreakBottomSheet(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius:
+            BorderRadius.vertical(top: Radius.circular(size.width * 0.05)),
+      ),
+      builder: (context) {
+        return Container(
+          padding: EdgeInsets.all(size.width * 0.05),
+          child: Stack(
+            // mainAxisSize: MainAxisSize.min,
+            children: [
+              Lottie.asset(confetti,repeat: false),
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(size.width * 0.06),
+                child: Column(
+                  children: [
+                    SizedBox(height: size.height * 0.03),
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          width: size.width * 0.2,
+                          height: size.width * 0.2,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColor.primaryColor.withOpacity(0.1),
+                          ),
+                          child: Center(
+                            child: Image.asset(
+                              streak,
+                              height: size.width * 0.1,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: size.height * 0.02),
+                    Text(
+                      '10 Days Streak!',
+                      style: xLargeBoldText,
+                    ),
+                    SizedBox(height: size.height * 0.01),
+                    Text(
+                      'Consistency is the key',
+                      style: mediumBoldText,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   Widget _buildSessionReminderCard() {
     DateTime today = DateTime.now();
@@ -105,14 +168,14 @@ class HomeScreen extends StatelessWidget {
             margin: const EdgeInsets.only(bottom: 16),
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: AppColor.lightPrimary,
+              color: AppColor.secondaryColor.withOpacity(0.4),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: AppColor.secondaryColor.withOpacity(0.3),
+                    color: AppColor.secondaryColor,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Container(
@@ -272,46 +335,49 @@ class HomeScreen extends StatelessWidget {
           physics: NeverScrollableScrollPhysics(),
           itemCount: 2,
           itemBuilder: (context, index) {
-            return Container(
-              margin: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.02,
-                vertical: 6,
-              ),
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.8),
-                    spreadRadius: 2,
-                    blurRadius: 8,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: AppColor.lightPrimary,
-                      borderRadius: BorderRadius.circular(12),
+            return InkWell(
+              onTap: ()=>showNormalSnackbar('Wait', 'Quiz will start on time'),
+              child: Container(
+                margin: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.02,
+                  vertical: 6,
+                ),
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.8),
+                      spreadRadius: 2,
+                      blurRadius: 8,
+                      offset: Offset(0, 3),
                     ),
-                    child: Icon(Icons.quiz, color: AppColor.primaryColor),
-                  ),
-                  SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Chemistry Final Quiz', style: mediumBoldText),
-                        Text('Tomorrow • 10:00 AM', style: mediumText),
-                      ],
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: AppColor.lightPrimary,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Icon(Icons.quiz, color: AppColor.primaryColor),
                     ),
-                  ),
-                  Icon(Icons.chevron_right),
-                ],
+                    SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Chemistry Final Quiz', style: mediumBoldText),
+                          Text('Tomorrow • 10:00 AM', style: mediumText),
+                        ],
+                      ),
+                    ),
+                    Icon(Icons.chevron_right),
+                  ],
+                ),
               ),
             );
           },
@@ -357,7 +423,9 @@ class HomeScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          showNormalSnackbar('Will Update Soon!!', 'No practice material available');
+        },
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
@@ -390,24 +458,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-
-
-  Widget _buildKeywordChip(String keyword) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: Color(0xFF9C27B0).withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Text(
-        keyword,
-        style: TextStyle(
-          fontSize: 12,
-          color: Color(0xFF9C27B0),
-        ),
-      ),
-    );
-  }
 
   Widget _buildStudyMaterialsSection() {
     return Column(
@@ -484,7 +534,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              // Navigate to study materials for this topic
+                              showNormalSnackbar('Will Update Soon!!', 'No Study Material Available');
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,

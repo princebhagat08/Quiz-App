@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:quizapp_testline/const/app_color.dart';
 
 import '../const/txt_style.dart';
 
@@ -19,6 +20,17 @@ void showSuccessSnackbar(String message) {
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Colors.green,
       duration: const Duration(seconds: 2));
+}
+
+void showNormalSnackbar(String title, String message){
+  Get.snackbar(
+    title,message,
+      titleText: Text(title,style: TextStyle(color: AppColor.whiteColor),),
+     messageText: Text(message,style: TextStyle(color: AppColor.whiteColor),),
+  snackPosition: SnackPosition.BOTTOM,
+    backgroundColor: AppColor.primaryColor.withOpacity(0.8),
+    duration: Duration(seconds: 3)
+  );
 }
 
 void showToast(String message) {

@@ -4,7 +4,7 @@ class AppColor {
   // Base color
   static const Color primaryColor = Color(0xFFA42FC1); // Rich Purple// Light Purple
   static const Color lightPrimary = Color(0xFFDB83E6); // Very Light Purple
-  static const Color secondaryColor = Color(0xFF891FA6); // Darker Purple
+  static const Color secondaryColor = Color(0xFF00b4d8); // Darker Purple
   static const Color offWhite = Color(0xFFF4F6F8); // Soft Grey Background
   static const Color whiteColor = Color(0xFFFFFFFF); // Pure White
   static const Color blackColor = Color(0xFF263238); // Dark Charcoal
