@@ -14,6 +14,7 @@ class SummaryScreen extends StatelessWidget {
   final double correctAns;
   final double incorrectAns;
   final double totalScore;
+
   const SummaryScreen({
     super.key,
     required this.completion,
@@ -212,7 +213,9 @@ class SummaryScreen extends StatelessWidget {
                       icon: Icons.remove_red_eye,
                       label: 'Review Answer',
                       color: Colors.brown,
-                      onTap: () {Get.to(()=>ReviewScreen());},
+                      onTap: () {
+                        onReviewAnswersPressed();
+                      },
                     ),
                     _buildActionButton(
                       icon: Icons.picture_as_pdf,
@@ -321,5 +324,12 @@ class SummaryScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void onReviewAnswersPressed() {
+    final quizController =
+        Get.find<QuizController>(); // Use existing controller
+    quizController.enterReviewMode();
+    Get.to(() => ReviewScreen());
   }
 }

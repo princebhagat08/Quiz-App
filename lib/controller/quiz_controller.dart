@@ -20,6 +20,7 @@ class QuizController extends GetxController {
   final RxMap<int, int> userAnswers = RxMap<int, int>({});
   final RxBool isLoading = true.obs;
   final RxString errorMessage = ''.obs;
+  final RxBool isReviewMode = false.obs;
 
   Questions? get currentQuestion =>
       quizData.value?.questions?[_currentQuestionIndex.value];
@@ -38,7 +39,9 @@ class QuizController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchQuizData();
+    if (!isReviewMode.value) {
+      fetchQuizData();
+    }
   }
 
   Future<void> fetchQuizData() async {
@@ -101,6 +104,11 @@ class QuizController extends GetxController {
   bool canMoveToNext() => !isLoading.value;
 
   void submitTest() {
+    if (isReviewMode.value) {
+      Get.back(); // Just go back if in review mode
+      return;
+    }
+
     int correctAnswers = 0;
     int totalAttempted = 0;
 
@@ -122,12 +130,15 @@ class QuizController extends GetxController {
 
     final timerController = Get.find<TimerController>();
     timerController.startTimer();
-    Get.to(() => SummaryScreen(
+    Get.to(
+      () => SummaryScreen(
         completion: completion,
         totalQuestion: totalQuestions.toDouble(),
         correctAns: correctAnswers.toDouble(),
         incorrectAns: (totalAttempted - correctAnswers).toDouble(),
-        totalScore: score));
+        totalScore: score,
+      ),
+    );
   }
 
   String getQuestionDescription() {
@@ -141,5 +152,14 @@ class QuizController extends GetxController {
   bool isCorrectOption(int index) {
     // Return true if this option is the correct answer
     return currentOptions![index].isCorrect!;
+  }
+
+  void enterReviewMode() {
+    isReviewMode.value = true;
+    _currentQuestionIndex.value = 0; // Reset to first question
+  }
+
+  void exitReviewMode() {
+    isReviewMode.value = false;
   }
 }

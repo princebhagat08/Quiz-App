@@ -14,6 +14,7 @@ class QuizScreen extends StatelessWidget {
   final TimerController timerController = Get.put(TimerController());
   final QuizController quizController = Get.put(QuizController());
 
+
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context).size;
@@ -253,81 +254,7 @@ class QuizScreen extends StatelessWidget {
     );
   }
 
-  // Widget _buildOptionButton(String text, int index) {
-  //   return Obx(() {
-  //     final isSelected = quizController.isOptionSelected(index);
-  //
-  //     Color getBackgroundColor() {
-  //       if (isSelected) return AppColor.primaryColor.withOpacity(0.1);
-  //       return Colors.white;
-  //     }
-  //
-  //     Color getBorderColor() {
-  //       if (isSelected) return AppColor.primaryColor;
-  //       return AppColor.grey.withOpacity(0.8);
-  //     }
-  //
-  //     return Container(
-  //       width: double.infinity,
-  //       height: 75,
-  //       child: ElevatedButton(
-  //         onPressed: () {
-  //           quizController.selectOption(index);
-  //         },
-  //         style: ElevatedButton.styleFrom(
-  //           backgroundColor: getBackgroundColor(),
-  //           shape: RoundedRectangleBorder(
-  //             borderRadius: BorderRadius.circular(25),
-  //             side: BorderSide(
-  //               color: getBorderColor(),
-  //               width: 1,
-  //             ),
-  //           ),
-  //           elevation: 0,
-  //         ),
-  //         child: Padding(
-  //           padding: EdgeInsets.only(left: 16),
-  //           child: Text(
-  //             text,
-  //             style: TextStyle(
-  //               color: Colors.black87,
-  //               fontSize: 16,
-  //               fontWeight: FontWeight.w500,
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //     );
-  //   });
-  // }
-
-  // Widget _buildButton(String title,
-  //     {bool enabled = true, VoidCallback? onPressed, double width = 150}) {
-  //   return Container(
-  //     width: width,
-  //     height: 50,
-  //     child: ElevatedButton(
-  //       onPressed: enabled ? onPressed : null,
-  //       style: ElevatedButton.styleFrom(
-  //         backgroundColor:
-  //             title == "Submit Test" ? Colors.green : AppColor.primaryColor,
-  //         shape: RoundedRectangleBorder(
-  //           borderRadius: BorderRadius.circular(10),
-  //         ),
-  //         elevation: 2,
-  //         disabledBackgroundColor: AppColor.grey,
-  //       ),
-  //       child: Text(
-  //         title,
-  //         style: TextStyle(
-  //           color: Colors.white,
-  //           fontSize: 14,
-  //           fontWeight: FontWeight.w600,
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
+  
 }
 
 

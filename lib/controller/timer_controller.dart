@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:quizapp_testline/controller/quiz_controller.dart';
 import '../const/app_color.dart';
+import '../utils/custom_utils.dart';
 
 class TimerController extends GetxController {
   var remainingTime = 0.obs;
@@ -10,6 +11,7 @@ class TimerController extends GetxController {
   int totalTime = 0;
 
   void initializeTimer(int duration) {
+    print("Timer Starts");
     totalTime = duration;
     remainingTime.value = duration;
     startTimer();
