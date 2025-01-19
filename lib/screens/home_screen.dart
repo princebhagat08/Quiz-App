@@ -53,6 +53,7 @@ class HomeScreen extends StatelessWidget {
                 _buildUpcomingQuizzes(),
                 _buildPracticeSection(),
                 _buildReadingSection(),
+                _buildStudyMaterialsSection(),
               ],
             ),
           ),
@@ -169,7 +170,7 @@ class HomeScreen extends StatelessWidget {
           child: Text('Maintain Your Streak', style: largeBoldText),
         ),
         InkWell(
-          onTap: ()=>Get.to(()=>QuizScreen()),
+          onTap: () => Get.to(() => QuizScreen()),
           child: Container(
             margin: const EdgeInsets.only(bottom: 16),
             padding: const EdgeInsets.all(16),
@@ -185,8 +186,8 @@ class HomeScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Container(
-                    padding:
-                        const EdgeInsets.only(top: 1, bottom: 1, left: 12, right: 12),
+                    padding: const EdgeInsets.only(
+                        top: 1, bottom: 1, left: 12, right: 12),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -309,7 +310,7 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(height: 12),
                       ElevatedButton(
                         onPressed: () {
-                          Get.to(()=>QuizScreen());
+                          Get.to(() => QuizScreen());
                         },
                         child: Text('Continue Quiz'),
                         style: ElevatedButton.styleFrom(
@@ -394,7 +395,7 @@ class HomeScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 8,top: 8),
+          padding: const EdgeInsets.only(left: 8, top: 8),
           child: Text('Practice', style: largeBoldText),
         ),
         GridView.count(
@@ -516,6 +517,102 @@ class HomeScreen extends StatelessWidget {
                         backgroundColor: Color(0xFF9C27B0), // Purple primary
                         foregroundColor: Colors.white,
                         elevation: 2,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStudyMaterialsSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text('Study Materials', style: largeBoldText),
+        ),
+        Container(
+          height: MediaQuery.of(Get.context!).size.height * 0.2,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 4, // Replace with actual count from your data
+            itemBuilder: (context, index) {
+              return Container(
+                width: MediaQuery.of(context).size.width * 0.6,
+                margin: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(0xFF9C27B0).withOpacity(0.8),
+                      Color(0xFFAB47BC).withOpacity(0.9),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      blurRadius: 8,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      right: -20,
+                      top: -20,
+                      child: Icon(
+                        Icons.book,
+                        size: 100,
+                        color: Colors.white.withOpacity(0.2),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Topic ${index + 1}',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                '5 Reading Materials',
+                                style: TextStyle(
+                                  color: Colors.white.withOpacity(0.9),
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              // Navigate to study materials for this topic
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              foregroundColor: Color(0xFF9C27B0),
+                            ),
+                            child: Text('Start Learning'),
+                          ),
+                        ],
                       ),
                     ),
                   ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:quizapp_testline/models/quiz_data_model.dart';
 import 'package:quizapp_testline/screens/custom_widgets/option_widget.dart';
@@ -8,6 +9,7 @@ import '../controller/timer_controller.dart';
 import '../controller/quiz_controller.dart';
 import 'custom_widgets/bubble.dart';
 import 'custom_widgets/custom_button.dart';
+import 'package:html/parser.dart';
 
 class ReviewScreen extends StatelessWidget {
   ReviewScreen({Key? key}) : super(key: key);
@@ -68,22 +70,19 @@ class ReviewScreen extends StatelessWidget {
                     top: -30,
                     left: 70,
                     child: Bubble(
-                        size: 80,
-                        color: AppColor.whiteColor.withOpacity(0.2)),
+                        size: 80, color: AppColor.whiteColor.withOpacity(0.2)),
                   ),
                   Positioned(
                     top: 50,
                     right: -30,
                     child: Bubble(
-                        size: 100,
-                        color: AppColor.whiteColor.withOpacity(0.2)),
+                        size: 100, color: AppColor.whiteColor.withOpacity(0.2)),
                   ),
                   Positioned(
                     bottom: 40,
                     left: -20,
                     child: Bubble(
-                        size: 70,
-                        color: AppColor.whiteColor.withOpacity(0.2)),
+                        size: 70, color: AppColor.whiteColor.withOpacity(0.2)),
                   ),
                 ],
               ),
@@ -99,8 +98,7 @@ class ReviewScreen extends StatelessWidget {
               padding: EdgeInsets.all(16),
               constraints: BoxConstraints(
                 minHeight: mq.height * 0.15,
-                maxHeight: mq.height *
-                    0.28,
+                maxHeight: mq.height * 0.28,
               ),
               decoration: BoxDecoration(
                 color: AppColor.whiteColor,
@@ -146,8 +144,7 @@ class ReviewScreen extends StatelessWidget {
 
           // Options
           Positioned(
-            top: mq.height *
-                0.45,
+            top: mq.height * 0.45,
             left: 10,
             right: 10,
             bottom: 60, // Keep space for bottom buttons
@@ -158,6 +155,7 @@ class ReviewScreen extends StatelessWidget {
                 }
 
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Scroll down for detailed solution',
                         style: mediumBoldColorText),
@@ -166,8 +164,7 @@ class ReviewScreen extends StatelessWidget {
                       (index) => Column(
                         children: [
                           buildOptionButton(
-                              quizController.getOptionDescription(index),
-                              index,
+                              quizController.getOptionDescription(index), index,
                               isReviewing: true),
                           SizedBox(height: 12),
                         ],
@@ -176,7 +173,71 @@ class ReviewScreen extends StatelessWidget {
                     SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text(quizController.currentQuestion!.detailedSolution!, style: xLargeText, textAlign: TextAlign.justify,),
+                      child: Text(
+                        quizController.currentQuestion!.detailedSolution!,
+                        style: xLargeText,
+                        textAlign: TextAlign.justify,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Study Material Expansion Panel
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                            color: AppColor.primaryColor.withOpacity(0.3)),
+                      ),
+                      child: ExpansionTile(
+                        title:
+                            Text('Study Material', style: mediumBoldColorText),
+                        children: [
+                          // Reading Material
+                          if (quizController.currentQuestion?.readingMaterial
+                                  ?.contentSections !=
+                              null)
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Reading Material',
+                                      style: mediumBoldText),
+                                  const SizedBox(height: 8),
+                                  ...quizController.currentQuestion!
+                                      .readingMaterial!.contentSections!
+                                      .map((section) => Html(data: section))
+                                      .toList(),
+                                ],
+                              ),
+                            ),
+
+                          // Practice Material
+                          if (quizController.currentQuestion?.readingMaterial
+                                  ?.practiceMaterial !=
+                              null)
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Practice Material',
+                                      style: mediumBoldText),
+                                  const SizedBox(height: 8),
+                                  ...quizController
+                                      .currentQuestion!
+                                      .readingMaterial!
+                                      .practiceMaterial!
+                                      .content
+                                      !.map((practice) => Html(data: practice))
+                                      .toList(),
+                                ],
+                              ),
+                            ),
+                        ],
+                      ),
                     ),
                   ],
                 );

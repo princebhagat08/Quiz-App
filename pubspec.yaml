@@ -39,6 +39,7 @@ dependencies:
   shimmer:
   fluttertoast:
   intl:
+  flutter_html: ^3.0.0-beta.2
 
 dev_dependencies:
   flutter_test:
