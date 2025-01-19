@@ -72,7 +72,7 @@ final mediumBoldText = TextStyle(
   fontSize: mediumTextsize,
   color: AppColor.blackColor,
   fontFamily: fontFamily,
-  fontWeight: FontWeight.w500,
+  fontWeight: FontWeight.bold,
 );
 
 final mediumBoldWhiteText = TextStyle(

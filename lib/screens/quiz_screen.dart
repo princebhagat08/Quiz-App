@@ -94,7 +94,11 @@ class QuizScreen extends StatelessWidget {
             top: mq.height * 0.16,
             child: Container(
               padding: EdgeInsets.all(16),
-              constraints: BoxConstraints(maxHeight: mq.height * 0.3),
+              constraints: BoxConstraints(
+                minHeight: mq.height * 0.15,
+                maxHeight: mq.height *
+                    0.28,
+              ),
               decoration: BoxDecoration(
                 color: AppColor.whiteColor,
                 borderRadius: BorderRadius.circular(30),
@@ -189,10 +193,12 @@ class QuizScreen extends StatelessWidget {
 
           // Options
           Positioned(
-            bottom: 60,
+            top: mq.height *
+                0.45,
             left: 10,
             right: 10,
-            // top: mq.height * 0.45,
+            bottom: 60,
+
             child: SingleChildScrollView(
               child: Obx(() {
                 if (quizController.isLoading.value) {
