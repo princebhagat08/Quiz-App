@@ -47,12 +47,12 @@ class HomeScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 8.0, bottom: 0.8),
                   child: Text('Hello Prince', style: xLargeBoldText),
                 ),
-                _buildTopCard(),
+                // _buildTopCard(),
                 _buildSessionReminderCard(),
                 _buildOngoingQuizzes(),
                 _buildUpcomingQuizzes(),
                 _buildPracticeSection(),
-                _buildReadingSection(),
+                // _buildReadingSection(),
                 _buildStudyMaterialsSection(),
               ],
             ),
@@ -88,77 +88,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTopCard() {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Colors.blue[300]!,
-            Colors.blue[400]!,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Find Quiz Code",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            "Enter quiz code that given by teacher, and you can start gathering badges!",
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.white.withOpacity(0.8),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.search,
-                  color: Colors.grey[400],
-                  size: 20,
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: TextField(
-                    focusNode: _textFieldFocusNode,
-                    decoration: InputDecoration(
-                      hintText: "Search quiz code",
-                      hintStyle: TextStyle(
-                        color: Colors.grey[400],
-                        fontSize: 14,
-                      ),
-                      border: InputBorder.none,
-                      isDense: true,
-                      contentPadding: EdgeInsets.zero,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+
 
   Widget _buildSessionReminderCard() {
     DateTime today = DateTime.now();
@@ -460,72 +390,22 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildReadingSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text('Reading Material', style: largeBoldText),
+
+
+  Widget _buildKeywordChip(String keyword) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: Color(0xFF9C27B0).withOpacity(0.1),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Text(
+        keyword,
+        style: TextStyle(
+          fontSize: 12,
+          color: Color(0xFF9C27B0),
         ),
-        SizedBox(
-          height: MediaQuery.of(Get.context!).size.height * 0.22,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 3,
-            itemBuilder: (context, index) {
-              return Container(
-                width: MediaQuery.of(context).size.width * 0.4,
-                margin: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.8),
-                      spreadRadius: 2,
-                      blurRadius: 8,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.book_online,
-                      size: 40,
-                      color: Color(0xFF9C27B0), // Purple primary
-                    ),
-                    SizedBox(height: 8),
-                    Text('Chapter ${index + 1}',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF4A4A4A),
-                        )),
-                    Text('Biology',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xFF757575),
-                        )),
-                    SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Text('Read'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF9C27B0), // Purple primary
-                        foregroundColor: Colors.white,
-                        elevation: 2,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        ),
-      ],
+      ),
     );
   }
 

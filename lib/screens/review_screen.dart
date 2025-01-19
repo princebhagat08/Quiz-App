@@ -147,7 +147,7 @@ class ReviewScreen extends StatelessWidget {
             top: mq.height * 0.45,
             left: 10,
             right: 10,
-            bottom: 60, // Keep space for bottom buttons
+            bottom: 80, // Keep space for bottom buttons
             child: SingleChildScrollView(
               child: Obx(() {
                 if (quizController.isLoading.value) {
@@ -175,7 +175,7 @@ class ReviewScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Text(
                         quizController.currentQuestion!.detailedSolution!,
-                        style: xLargeText,
+                        style: mediumText,
                         textAlign: TextAlign.justify,
                       ),
                     ),
@@ -281,9 +281,5 @@ class ReviewScreen extends StatelessWidget {
     );
   }
 
-  // @override
-  // void dispose() {
-  //   quizController.exitReviewMode();
-  //   super.dispose();
-  // }
+
 }
