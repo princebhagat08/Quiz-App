@@ -12,10 +12,10 @@ Widget buildOptionButton(String text, int index, {bool isReviewing = false}) {
 
     Color getBackgroundColor() {
       if (isReviewing) {
-        if (isCorrect) return Colors.green.withOpacity(0.1);
-        if (isSelected) return Colors.red.withOpacity(0.1);
+        if (isCorrect) return Colors.green.withOpacity(0.3);
+        if (isSelected) return Colors.red.withOpacity(0.3);
       }
-      if (isSelected) return AppColor.primaryColor.withOpacity(0.1);
+      if (isSelected) return AppColor.primaryColor.withOpacity(0.3);
       return Colors.white;
     }
 
@@ -47,6 +47,7 @@ Widget buildOptionButton(String text, int index, {bool isReviewing = false}) {
             isReviewing ? null : () => quizController.selectOption(index),
         style: ElevatedButton.styleFrom(
           backgroundColor: getBackgroundColor(),
+          disabledBackgroundColor: getBackgroundColor(),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
             side: BorderSide(

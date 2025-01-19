@@ -105,7 +105,7 @@ class QuizController extends GetxController {
 
   void submitTest() {
     if (isReviewMode.value) {
-      Get.back(); // Just go back if in review mode
+      Get.back();
       return;
     }
 
@@ -130,6 +130,10 @@ class QuizController extends GetxController {
 
     final timerController = Get.find<TimerController>();
     timerController.startTimer();
+
+    // Clear answers before navigating
+    userAnswers.clear();
+
     Get.to(
       () => SummaryScreen(
         completion: completion,
@@ -139,6 +143,9 @@ class QuizController extends GetxController {
         totalScore: score,
       ),
     );
+    _currentQuestionIndex.value = 0;
+    // Reset quiz data to ensure clean state
+    quizData.value = null;
   }
 
   String getQuestionDescription() {
@@ -150,8 +157,10 @@ class QuizController extends GetxController {
   }
 
   bool isCorrectOption(int index) {
-    // Return true if this option is the correct answer
-    return currentOptions![index].isCorrect!;
+    if (currentOptions == null || index >= currentOptions!.length) {
+      return false;
+    }
+    return currentOptions![index].isCorrect ?? false;
   }
 
   void enterReviewMode() {
