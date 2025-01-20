@@ -76,7 +76,7 @@ class QuizScreen extends StatelessWidget {
                                  ),
                                  ElevatedButton(
                                    onPressed: () {
-                                     Get.off(() {HomeScreen();},transition: Transition.fadeIn );
+                                     Get.offAll(()=>HomeScreen(),transition: Transition.fadeIn);;
                                      quizController.userAnswers.clear();
                                      Get.delete<QuizController>(force: true);
 

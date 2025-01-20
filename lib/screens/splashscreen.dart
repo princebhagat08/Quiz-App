@@ -39,6 +39,7 @@ class _SplashscreenState extends State<Splashscreen>  with SingleTickerProviderS
     await Future.delayed(const Duration(seconds: 4));
     if(showHome){
       Get.offAll(()=> HomeScreen());
+
     }else{
       Get.offAll(() => OnbordingScreen());
     }

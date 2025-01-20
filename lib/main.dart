@@ -1,17 +1,14 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:quizapp_testline/screens/home_screen.dart';
-import 'package:quizapp_testline/screens/leaderboard.dart';
-import 'package:quizapp_testline/screens/onBording_screen/onBording_screen.dart';
-import 'package:quizapp_testline/screens/quiz_screen.dart';
 import 'package:quizapp_testline/screens/splashscreen.dart';
-import 'package:quizapp_testline/screens/summary_screen.dart';
-
+import 'apiServices/http_overrides.dart';
 import 'const/app_color.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  HttpOverrides.global = MyHttpOverrides();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then((_)=> runApp(const MyApp()));

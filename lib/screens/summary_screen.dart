@@ -71,7 +71,7 @@ class SummaryScreen extends StatelessWidget {
                             icon: Icon(Icons.arrow_back,
                                 size: 30, color: AppColor.whiteColor),
                             onPressed: () {
-                              // Handle back action
+                              Get.offAll(()=>HomeScreen());
                             },
                           ),
                           IconButton(

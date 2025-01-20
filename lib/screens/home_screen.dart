@@ -107,7 +107,7 @@ class HomeScreen extends StatelessWidget {
           child: Stack(
             // mainAxisSize: MainAxisSize.min,
             children: [
-              Lottie.asset(confetti,repeat: false),
+              Lottie.asset(confetti,repeat: true),
               Container(
                 width: double.infinity,
                 padding: EdgeInsets.all(size.width * 0.06),
