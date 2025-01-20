@@ -2,6 +2,29 @@
 
 Quiz application for the assignment given for position of Flutter Developer Intern
 
+## Tasks
+<p>
+Data Integration:<br>
+✅Fetch quiz data from the API endpoint. - Used Http<br>
+✅Ensure proper parsing and error handling for robust data integration. 
+</p>
+
+Core Features:<br>
+✅Start Quiz<br>
+✅Questions with multiple-choice answers.<br>
+✅Show a summary of results upon quiz completion, including total points scored.<br>
+
+
+Technical Requirements:<br>
+✅Use the Flutter framework for development.<br>
+✅Ensure the app is responsive across various devices and orientations.<br>
+✅Write clean, maintainable, and well-documented code.- <b>Used GETX state managment</b><br>
+
+
+Bonus Points (Optional)<br>
+✅Clean Intuitive design<br>
+✅Gamification implementation - <b>Added Leaderboard, Badges and Streak System</b><br>
+
 ## Getting Started
 To setup the project start by cloning the repo to your local machine 
 ``` 
@@ -39,3 +62,5 @@ lib/
 │   └── helpers.dart              # Contains helper functions for various operations.
 └── main.dart                     # The entry point of the Flutter application.
 ```
+
+
