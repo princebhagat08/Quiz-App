@@ -2,6 +2,8 @@
 
 A new Flutter project.
 
+<img src="https://github.com/princebhagat08/Quiz-App/blob/main/Screenshots/Homescreen.png" alt='homescreen'>
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
