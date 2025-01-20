@@ -55,7 +55,7 @@ flutter run
 ## Screenshots
 <img src='https://github.com/princebhagat08/Quiz-App/blob/main/Screenshots/1.png'>
 <img src='https://github.com/princebhagat08/Quiz-App/blob/main/Screenshots/2.png'>
-
+<img src='https://github.com/princebhagat08/Quiz-App/blob/main/Screenshots/new.png'>
 <img src='https://github.com/princebhagat08/Quiz-App/blob/main/Screenshots/4.png'>
 
 
