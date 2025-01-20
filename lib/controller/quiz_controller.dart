@@ -57,7 +57,7 @@ class QuizController extends GetxController {
       timerController.initializeTimer(quizData.value!.duration! * 60 ?? 60);
       isLoading.value = false;
     } catch (e) {
-      showErrorDialog('$e', [
+      showCustomDialog('Error','$e', Colors.redAccent, [
         TextButton(
             onPressed: () {
               Get.off(() => HomeScreen());

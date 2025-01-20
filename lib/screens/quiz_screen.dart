@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizapp_testline/screens/custom_widgets/option_widget.dart';
+import 'package:quizapp_testline/screens/home_screen.dart';
+import 'package:quizapp_testline/utils/custom_utils.dart';
 import '../const/txt_style.dart';
 import '../const/app_color.dart';
 import '../controller/timer_controller.dart';
@@ -51,7 +53,50 @@ class QuizScreen extends StatelessWidget {
                           icon: Icon(Icons.arrow_back,
                               size: 30, color: AppColor.whiteColor),
                           onPressed: () {
-                            // Handle back action
+                           showCustomDialog('Alert!!', 'Are you sure you want to leave the quiz?', AppColor.primaryColor,
+                               [
+                                 ElevatedButton(
+                                   onPressed: () {
+                                     Get.back();
+                                   },
+                                   style: ElevatedButton.styleFrom(
+                                     backgroundColor: Colors.redAccent,
+                                     foregroundColor: Colors.white, // Text color
+                                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                     shape: RoundedRectangleBorder(
+                                       borderRadius: BorderRadius.circular(10),
+                                     ),
+                                     shadowColor: Colors.red.withOpacity(0.5),
+                                     elevation: 5,
+                                   ),
+                                   child: Text(
+                                     'No',
+                                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                                   ),
+                                 ),
+                                 ElevatedButton(
+                                   onPressed: () {
+                                     Get.off(() {HomeScreen();},transition: Transition.fadeIn );
+                                     quizController.userAnswers.clear();
+                                     Get.delete<QuizController>(force: true);
+
+                                   },
+                                   style: ElevatedButton.styleFrom(
+                                     backgroundColor: Colors.grey[300],
+                                     foregroundColor: Colors.black, // Text color
+                                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                     shape: RoundedRectangleBorder(
+                                       borderRadius: BorderRadius.circular(10),
+                                     ),
+                                   ),
+                                   child: Text(
+                                     'Yes',
+                                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                                   ),
+                                 ),
+
+                               ]
+                           );
                           },
                         ),
                         IconButton(

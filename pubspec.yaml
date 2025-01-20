@@ -41,6 +41,8 @@ dependencies:
   intl:
   flutter_html: ^3.0.0-beta.2
   lottie:
+  smooth_page_indicator:
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:

@@ -42,10 +42,10 @@ void showToast(String message) {
       fontSize: 16.0);
 }
 
-void showErrorDialog(String message, List<Widget> actions){
+void showCustomDialog(String title,String message,Color color, List<Widget> actions){
   Get.defaultDialog(
-      title: "Error",
-      titleStyle: TextStyle(color: Colors.redAccent),
+      title: title,
+      titleStyle: TextStyle(color: color),
       content: Text(message,style: mediumBoldText,),
       actions: actions,
   );

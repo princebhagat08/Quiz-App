@@ -53,7 +53,7 @@ class ReviewScreen extends StatelessWidget {
                           icon: Icon(Icons.arrow_back,
                               size: 30, color: AppColor.whiteColor),
                           onPressed: () {
-                            // Handle back action
+                            Get.back();
                           },
                         ),
                         IconButton(
@@ -147,7 +147,7 @@ class ReviewScreen extends StatelessWidget {
             top: mq.height * 0.45,
             left: 10,
             right: 10,
-            bottom: 80, // Keep space for bottom buttons
+            bottom: 80,
             child: SingleChildScrollView(
               child: Obx(() {
                 if (quizController.isLoading.value) {
