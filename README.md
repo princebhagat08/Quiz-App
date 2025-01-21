@@ -45,7 +45,7 @@ flutter run
 
 ## Video
 
-[![Watch the video](https://i9.ytimg.com/vi_webp/7rf8BLjxUS0/mq2.webp?sqp=CPjBuLwG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGEEgWShyMA8=&rs=AOn4CLA8T37hIEwvwmdlqu94aHPvTSdHVA)](https://youtu.be/7rf8BLjxUS0)
+[![Watch the video](https://i9.ytimg.com/vi_webp/7rf8BLjxUS0/mqdefault.webp?v=678fa73e&sqp=CLTOvrwG&rs=AOn4CLBvNTUTfDF774CBhWtSE4LqLRrmbg)](https://youtu.be/7rf8BLjxUS0)
 
 
 
