@@ -1,6 +1,6 @@
 # QuizApp
 
-Quiz application for the assignment given for position of Flutter Developer Intern
+Quiz application: A freelance project for a coaching center.
 
 ## Tasks
 <p>
@@ -42,13 +42,6 @@ OR
 ```
 flutter run
 ```
-
-## Video
-
-[![Watch the video](https://i9.ytimg.com/vi_webp/7rf8BLjxUS0/mqdefault.webp?v=678fa73e&sqp=CLTOvrwG&rs=AOn4CLBvNTUTfDF774CBhWtSE4LqLRrmbg)](https://youtu.be/7rf8BLjxUS0)
-
-
-
 
 
 
